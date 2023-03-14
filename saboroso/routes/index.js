@@ -18,5 +18,24 @@ router.get('/', function(req, res, next) {
   });
   res.render('index', { title: 'Restaurante Saboroso!' });
 });
-
+router,get('/contacts',function(req,res,next){
+  res.render('contacts',{
+    title:'contatos - Restaurantes Saboroso!',
+  });
+});
+router,get('/menus',function(req,res,next){
+  res.render('menus',{
+    title:'menus - Restaurantes Saboroso!',
+  });
+});
+router,get('/reservations',function(req,res,next){
+  res.render('reservations',{
+    title:'reservas - Restaurantes Saboroso!',
+  });
+});
+router,get('/services',function(req,res,next){
+  res.render('services',{
+    title:'serviços  - Restaurantes Saboroso!',
+  });
+});
 module.exports = router;
