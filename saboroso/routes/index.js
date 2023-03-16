@@ -16,6 +16,10 @@ menus.getMenus().then(results=>{
   });
   });
 })
+router.get('/logout',function(req,res,next){
+  delete req.session.user;
+  res.redirect('/admin/login');
+});
   
 router.get('/contacts',function(req,res,next){
   contacts.render(req,res);
