@@ -12,18 +12,34 @@ module.exports = {
     },
     save(fields){
         return new Promise((resolve, reject) => {
+        if (fields.date.indexOf('/')> -1){
             let date = fields.date.split('/');
             fields.date = `${date[2]}-${date[1]}-${date[0]}`;
-            conn.query(`
-        INSERT INTO tn_reservations (name,email,people,date,time)
-        VALUE(?, ?, ?, ?, ?)
-        `,[
-            fields.name,
-            fields.email,
-            fields.people,
-            fields.date,
-            fields.time
-        ],(err,results)=>{
+        }
+            let query, params = [
+                fields.name,
+                fields.email,
+                fields.people,
+                fields.date,
+                fields.time
+            ];
+            if(parseInt(fields.id)>0){
+                query = `
+                    UPDATE tb_reservations
+                    SET 
+                    name = ?,
+                    email = ?,
+                    people = ?,
+                    time = ?
+                    WHERE id = ?`;
+                    params.push(fields.id);
+            }else{
+                query = `
+                INSERT INTO tn_reservations (name,email,people,date,time)
+                VALUE(?, ?, ?, ?, ?)
+                `
+            }
+            query(query,params,(err,results)=>{
             if(err){
                 reject(err);
             }else{
