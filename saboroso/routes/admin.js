@@ -3,7 +3,9 @@ var users = require('./../inc/users');
 var admin = require('./../inc/admin');
 var  menus = require('./../inc/menus');
 var reservations = require ('./../inc/reservations');
+var moment = require('moment')
 var router = express.Router();
+moment.locale('pt-BR');
 
 router.use(function(req,res,next){
     if(['/login'].indexOf(req.url) === - 1 && !req.session.user){
@@ -78,9 +80,14 @@ router.delete('/menus/:id',function(req,res,next){
     })
 });
 router.get('/reservations', function(req,res,next){
-    res.render("admin/reservations",admin.getParems(req,{
-        date:{}
-    }));
+    reservations.getReservations().then(date=>{
+        res.render("admin/reservations",admin.getParems(req,{
+            date:{},
+            data,
+            moment
+        }));
+    });
+    
 });
 router.post('/reservations',function(req,res,next){
     reservations.save(req.fields,req.files).then(results=>{
