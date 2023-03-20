@@ -48,7 +48,7 @@ class hcodeGrid{
     initForms(){
 
         this.formCreate = document.querySelector(this.options.formCreate);
-
+        if(this.formCreate){
         this.formCreate.save({
             success:()=>{
                 this.fireEvent('afterFormCreate');
@@ -59,8 +59,9 @@ class hcodeGrid{
             }
         });
 
-
+    }
         this.formUpdate = document.querySelector(this.options.formUpdate);
+        if(this.formUpdate){
 
         this.formUpdate.save({
             success:()=>{
@@ -72,7 +73,7 @@ class hcodeGrid{
             }
         });
        
-
+    }
     }
     fireEvent(name, args){
 
